@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pengumuman Kelulusan SMP Ma'arif Bandongan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Pengumuman Kelulusan Kelas IX</h1>
+    <h2>SMP Ma'arif Bandongan</h2>
+    <h3>Tahun Ajaran 2024/2025</h3>
+
+    <div id="countdown"></div>
+
+    <div id="login-section" class="login-box" style="display: none;">
+      <h3>Login NISN</h3>
+      <input type="text" id="nisn" placeholder="Masukkan NISN" />
+      <button onclick="checkGraduation()">Cek Kelulusan</button>
+    </div>
+
+    <div id="announcement" class="announcement"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #0b6623;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  padding: 20px;
+}
+h1, h2 {
+  margin: 10px 0;
+}
+#countdown {
+  font-size: 2em;
+  margin: 20px 0;
+}
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-top: 20px;
+}
+input[type="text"] {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #2e7d32;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #1b5e20;
+}
+.announcement {
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+}
+.announcement.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.status {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+.congrats {
+  font-size: 1.5em;
+  color: #c8e6c9;
+}
+.note {
+  font-size: 0.9em;
+  margin-top: 15px;
+  font-style: italic;
+}
+.quote {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 1.1em;
+  color: #a5d6a7;
+}
+const graduationDate = new Date("2025-06-02T16:00:00+07:00").getTime();
+const countdownEl = document.getElementById("countdown");
+const loginSection = document.getElementById("login-section");
+const announcementEl = document.getElementById("announcement");
+
+const students = [
+  {nisn: "3098983573", nama: "AHMAD ADI SETIAWAN", status: "LULUS"},
+  {nisn: "0105365084", nama: "AHMAD ALVINO PRADANA", status: "LULUS"},
+  {nisn: "3102607165", nama: "AHMAD NAJI", status: "LULUS"},
+  {nisn: "0091784494", nama: "AHMAD NAUFAL ARIFUDIN", status: "LULUS"},
+  {nisn: "0108332606", nama: "AHMAD QIQI WARDANA", status: "MASIH ADA KEKURANGAN ADMINISTRASI"},
+  {nisn: "0087879391", nama: "AHMAD SALMAN ALFARISI", status: "LULUS"},
+  {nisn: "0105016003", nama: "AKHMAD ANHAR BASWARA", status: "LULUS"},
+  {nisn: "0104706532", nama: "ALDHI FIRMANSYAH", status: "LULUS"},
+  {nisn: "0086301058", nama: "MAULANA RIDHO ASHIDIQI", status: "LULUS"},
+  {nisn: "0096302235", nama: "MUHAMAD FARHAN BAIHAQI", status: "LULUS"},
+  {nisn: "0106294396", nama: "MUHAMMAD ABDUL MUFID", status: "LULUS"},
+  {nisn: "0096014917", nama: "MUHAMMAD CHOIRUL NGAZAM", status: "LULUS"},
+  {nisn: "0107983363", nama: "MUHAMMAD DAVA FERDYANSAH", status: "MASIH ADA KEKURANGAN ADMINISTRASI"},
+  {nisn: "0105078012", nama: "MUHAMMAD DZAKYY ALFAROUQ", status: "LULUS"},
+  {nisn: "0103150741", nama: "MUHAMMAD SOLICHAN", status: "LULUS"},
+  {nisn: "3101076946", nama: "MUHAMMAD WAIS ARIAN ALQURNI", status: "LULUS"},
+  {nisn: "3082368660", nama: "NALA KHUSNI MUBAROK", status: "LULUS"},
+  {nisn: "0091594595", nama: "AFA NURUL FADHILAH", status: "LULUS"},
+  {nisn: "0101223251", nama: "AGASTYA LEA ZUANDRA", status: "LULUS"},
+  {nisn: "0106569676", nama: "ALVIA NURUL KHUSNA", status: "LULUS"},
+  {nisn: "0115198731", nama: "ALVITA RAHMATUL ZAKIYA", status: "LULUS"},
+  {nisn: "0106538986", nama: "ASRI KHANIFATUL A'IZAH", status: "LULUS"},
+  {nisn: "0092377223", nama: "BALQIS ROSALIA FIRDAUS DWI PUTRI", status: "LULUS"},
+  {nisn: "0108350559", nama: "DIAH AYU FITRIYANI", status: "LULUS"},
+  {nisn: "0099828813", nama: "DWI ATIK CAHYANI", status: "LULUS"},
+  {nisn: "3098187865", nama: "LAELA KHASUN", status: "LULUS"},
+  {nisn: "0109238372", nama: "LINTANG UTAMI ARIMAH QABSOH", status: "LULUS"},
+  {nisn: "0093957580", nama: "LUTHFIA DWI HARTATI", status: "LULUS"},
+  {nisn: "0108711948", nama: "MAILA DINA NAFISA", status: "LULUS"},
+  {nisn: "0101774131", nama: "MAULIDA AISNA SYAHDA MIRSAHA", status: "LULUS"},
+  {nisn: "0104741205", nama: "NABILA BUDUR DAURIN", status: "LULUS"},
+  {nisn: "0108631165", nama: "NADZIFAH JIHAN PUTRI", status: "LULUS"},
+  {nisn: "0101432325", nama: "NASHFA SYAHRIN AL INAYA", status: "LULUS"},
+  {nisn: "3091872539", nama: "NAYLA EKA KARUNIA", status: "LULUS"},
+  {nisn: "0108578386", nama: "NAYLA KHOIRU SYIFA", status: "LULUS"},
+  {nisn: "3102157922", nama: "NIHA NOOR CHOIRUNNISA", status: "LULUS"},
+  {nisn: "0094285633", nama: "NISA ALIFIA", status: "LULUS"},
+  {nisn: "0105482435", nama: "NUR AINI", status: "LULUS"},
+  {nisn: "3097659549", nama: "SYAFIRA DITA ANJANI", status: "LULUS"},
+  {nisn: "3107381210", nama: "TYAS AERANI SYAFIRA", status: "LULUS"},
+  {nisn: "0109589999", nama: "VANESSYA NUR INDAH", status: "LULUS"},
+  {nisn: "0096815976", nama: "WILDA AULIA QUNI'ATURRACHMA", status: "LULUS"},
+  {nisn: "0106563385", nama: "WULAN ANGGRAINI", status: "LULUS"},
+  {nisn: "0105686935", nama: "YULIA ALIFATUL KHARISNA", status: "LULUS"},
+  {nisn: "0116820085", nama: "ZUHROTUL MUFIDAH", status: "LULUS"},
+  {nisn: "0105552389", nama: "ZULFA KHUSNATUN NABILA", status: "LULUS"}
+];
+
+const interval = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = graduationDate - now;
+
+  if (distance > 0) {
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = `Pengumuman Kelulusan akan dibuka dalam: ${days}h ${hours}j ${minutes}m ${seconds}d`;
+  } else {
+    clearInterval(interval);
+    countdownEl.style.display = "none";
+    loginSection.style.display = "block";
+  }
+}, 1000);
+
+function checkGraduation() {
+  const nisn = document.getElementById("nisn").value.trim();
+  const student = students.find(s => s.nisn === nisn);
+
+  if (student) {
+    let message = `<h2>Nama: ${student.nama}</h2>`;
+    message += `<div class="status">Status Kelulusan: <strong>${student.status}</strong></div>`;
+
+    if (student.status === "LULUS") {
+      message += `<div class="congrats">Selamat atas kelulusanmu!</div>`;
+    } else {
+      message += `<div class="note">Bagi yang BELUM LUNAS administrasi sekolah, segera dilunasi sebelum wasana warsa tanggal 14 Juni 2025 sebagai syarat pengambilan Surat Keterangan Lulus (SKL)</div>`;
+    }
+
+    message += `<div class="quote">"Jangan berhenti ketika lelah, berhentilah ketika sudah selesai. Teruslah belajar dan gapailah cita-citamu!"</div>`;
+    announcementEl.innerHTML = message;
+    announcementEl.classList.add("show");
+  } else {
+    announcementEl.innerHTML = `<div class="status">NISN tidak ditemukan. Periksa kembali NISN Anda!</div>`;
+    announcementEl.classList.add("show");
+  }
+}
